@@ -1,0 +1,42 @@
+service: test-postgresql
+frameworkVersion: '2'
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+
+  stage: dev
+  region: ap-south-1
+
+functions:
+  tables:
+    handler: handler.tables
+    events:
+      - http:
+          path: tables
+          method: get
+
+  delete:
+    handler: handler.delete
+    events:
+      - http:
+          path: /delete
+          method: delete
+
+  insert:
+    handler: handler.insert
+    events:
+      - http:
+          path: /insert
+          method: post
+
+  update:
+    handler: handler.update
+    events:
+      - http:
+          path: /update
+          method: put
+
+
+plugins:
+  - serverless-offline
